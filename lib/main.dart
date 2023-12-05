@@ -28,8 +28,14 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
+  var history = <WordPair>[];
+
+  GlobalKey? historyListKey;
 
   void getNext() {
+    history.insert(0, current);
+    var animatedList = historyListKey?.currentState as AnimatedListState;
+    animatedList.insertItem(0);
     current = WordPair.random();
     notifyListeners();
   }
@@ -41,6 +47,15 @@ class MyAppState extends ChangeNotifier {
       favorites.add(current);
     } else {
       favorites.remove(current);
+    }
+    notifyListeners();
+  }
+
+  void toggleHistoryFavorite(WordPair pair) {
+    if (!favorites.contains(pair)) {
+      favorites.add(pair);
+    } else {
+      favorites.remove(pair);
     }
     notifyListeners();
   }
@@ -165,7 +180,8 @@ class GeneratorPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("An Awesome random word : "),
+          const Expanded(child: HistoryListView()),
+          const SizedBox(height: 25),
           BigCard(pair: pair),
           const SizedBox(
             height: 10,
@@ -184,7 +200,8 @@ class GeneratorPage extends StatelessWidget {
                 child: const Text("Next"),
               ),
             ],
-          )
+          ),
+          const SizedBox(height: 100),
         ],
       ),
     );
@@ -227,6 +244,54 @@ class BigCard extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class HistoryListView extends StatefulWidget {
+  const HistoryListView({super.key});
+
+  @override
+  State<HistoryListView> createState() => _HistoryListViewState();
+}
+
+class _HistoryListViewState extends State<HistoryListView> {
+  final _key = GlobalKey();
+
+  static const Gradient _maskingGradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [Colors.transparent, Colors.red],
+      stops: [0.0, 0.5]);
+
+  @override
+  Widget build(BuildContext context) {
+    final appState = context.watch<MyAppState>();
+    appState.historyListKey = _key;
+
+    return ShaderMask(
+      shaderCallback: (bounds) => _maskingGradient.createShader(bounds),
+      blendMode: BlendMode.dstIn,
+      child: AnimatedList(
+        key: _key,
+        reverse: true,
+        initialItemCount: appState.history.length,
+        itemBuilder: (context, index, animation) {
+          final pair = appState.history[index];
+          return SizeTransition(
+            sizeFactor: animation,
+            child: Center(
+              child: TextButton.icon(
+                onPressed: () => appState.toggleHistoryFavorite(pair),
+                icon: Icon(
+                  appState.favorites.contains(pair) ? Icons.favorite : null,
+                ),
+                label: Text(pair.asLowerCase),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
