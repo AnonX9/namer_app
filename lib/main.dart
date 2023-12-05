@@ -78,6 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var colorScheme = Theme.of(context).colorScheme;
+
     Widget page;
     switch (selectedIndex) {
       case 0:
@@ -90,35 +92,65 @@ class _MyHomePageState extends State<MyHomePage> {
             "widget do not exist for index $selectedIndex");
     }
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        body: Row(
-          children: [
-            NavigationRail(
-              extended: constraints.maxWidth >= 600,
-              destinations: const [
-                NavigationRailDestination(
-                  icon: Icon(Icons.home),
-                  label: Text("home"),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.favorite),
-                  label: Text("favorites"),
-                ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) {
-                setState(() {
-                  selectedIndex = value;
-                });
-              },
-            ),
-            Expanded(child: page)
-          ],
-        ),
-      );
-    });
+    var mainArea = ColoredBox(
+      color: colorScheme.surfaceVariant,
+      child: page,
+    );
+
+    return Scaffold(
+      body: LayoutBuilder(builder: (context, constraints) {
+        if (constraints.maxWidth >= 450) {
+          return Row(
+            children: [
+              NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: const [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text("home"),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.favorite),
+                    label: Text("favorites"),
+                  ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
+              ),
+              Expanded(child: mainArea)
+            ],
+          );
+        } else {
+          return Column(
+            children: [
+              Expanded(child: mainArea),
+              BottomNavigationBar(
+                currentIndex: selectedIndex,
+                onTap: (value) {
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "home",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite),
+                    label: "Favorites",
+                  ),
+                ],
+              )
+            ],
+          );
+        }
+      }),
+    );
   }
 }
 
