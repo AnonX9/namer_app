@@ -44,6 +44,11 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void removeFavorite(WordPair pair) {
+    if (favorites.contains(pair)) favorites.remove(pair);
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -110,16 +115,33 @@ class FavoritesPage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
     final theme = Theme.of(context);
 
-    return ListView(
+    if (appState.favorites.isEmpty) {
+      return const Center(
+        child: Text("No favorites yet."),
+      );
+    }
+
+    return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
           child: Text("You have ${appState.favorites.length} favorites : "),
         ),
-        ...appState.favorites.map(
-          (e) => ListTile(
-            leading: Icon(Icons.favorite, color: theme.primaryColor),
-            title: Text(e.asLowerCase),
+        Expanded(
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 400, childAspectRatio: 400 / 80),
+            children: [
+              ...appState.favorites.map(
+                (e) => ListTile(
+                  leading: IconButton(
+                      onPressed: () => appState.removeFavorite(e),
+                      icon: Icon(Icons.delete_outline,
+                          color: theme.primaryColor)),
+                  title: Text(e.asLowerCase),
+                ),
+              )
+            ],
           ),
         )
       ],
