@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     selectedIndex = value;
                   });
                 },
-                items: [
+                items: const [
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
                     label: "home",
@@ -260,7 +260,7 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: AnimatedSize(
-          duration: const Duration(milliseconds: 1000),
+          duration: const Duration(milliseconds: 400),
           child: MergeSemantics(
             child: Wrap(
               children: [
