@@ -22,6 +22,7 @@ I'm a full stack junior developer who doesn't know his real value yet. I'm tryin
 
 
 ## Screenshots
+### Desktop Like
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Desktop HomePage](/sccreenshots)
 
