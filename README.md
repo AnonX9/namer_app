@@ -24,5 +24,14 @@ I'm a full stack junior developer who doesn't know his real value yet. I'm tryin
 ## Screenshots
 ### Desktop Like
 
-![Desktop HomePage](/sccreenshots)
+![Desktop HomePage](./screeenshots/Screenshot%20from%202023-12-07%2023-42-24.png)
+![Desktop HomePage 2](./screeenshots/Screenshot%20from%202023-12-07%2023-44-09.png)
+![Desktop FavoritesPage](./screeenshots/Screenshot%20from%202023-12-07%2023-44-28.png)
+![Desktop FavoritesPage 2](./screeenshots/Screenshot%20from%202023-12-07%2023-44-41.png)
+
+### Mobile Like
+![Mobile HomePage](./screeenshots/Screenshot%20from%202023-12-07%2023-44-58.png)
+![Mobile FavoritesPage](./screeenshots/Screenshot%20from%202023-12-07%2023-45-14.png)
+
+
 
