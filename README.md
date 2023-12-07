@@ -1,16 +1,27 @@
-# namer_app
 
-An Application that randomly generate singing words.
+# Namer App
 
-## Getting Started
+My First true Flutter Application. It generates randoms pairs words and display them in a card. Every word can favorited and appear in an history list.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Acknowledgements
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ - [Google codelabs : Créer votre première application Flutter](https://codelabs.developers.google.com/codelabs/flutter-codelab-first?hl=fr#8)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Features
+
+- History
+- Favorites
+- Responsive
+- Cross platform
+
+
+## 🚀 About Me
+I'm a full stack junior developer who doesn't know his real value yet. I'm trying to specialize in Mobile and web development.
+
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
